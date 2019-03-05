@@ -1,0 +1,23 @@
+{
+  "name": "projet_appli_web",
+  "version": "1.0.0",
+  "description": "Projet Application Web - Management et Gestion Ouverte (MGO)",
+  "main": "main.js",
+  "scripts": {
+    "start": "node main.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/s0nnyhu/projet_appli_web.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/s0nnyhu/projet_appli_web/issues"
+  },
+  "homepage": "https://github.com/s0nnyhu/projet_appli_web#readme",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "express": "^4.16.4"
+  }
+}
