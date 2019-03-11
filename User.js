@@ -1,74 +1,84 @@
-var listeUtilisateurs = {};
 
-// Constructeur pour les Positions
-function Position(id, role, nom, prenom, adresse, mail, tel) {
-  this.id = id
+var listeUtilisateurs = {};
+var index = 1;
+
+// Constructeur pour les Comptes
+function Compte(id, role, nom, prenom, adresse, mail, tel) {
+  this.id = id;
 	this.role = role;
+	this.nom = nom;
 	this.prenom = prenom;
 	this.adresse = adresse;
 	this.mail = mail;
 	this.tel = tel;
 }
 
-// Constructeur pour les Comptes
-function Compte(id, role, nom, prenom, adresse, mail, tel) {
-  // la position du compte
-  this.position = new Position(id, role, nom, prenom, adresse, mail, tel);
-  // pour créditer le compte
-  this.ajouter = function(somme) {
-  	this.position.somme += somme;
-  	this.position.date = new Date();
-  }
-  // pour débiter le compte
-  this.retirer = function(somme) {
-  	this.position.somme -= somme;
-  	this.position.date = new Date();
-  }
+// créer un nouveau compte
+var creerCompteNonMiagiste = function(nom, prenom, adresse, mail, tel) {
+	id = index;		
+		// s'il n'existe pas
+	if (typeof listeUtilisateurs[id] === 'undefined') {
+		// on le cree
+		listeUtilisateurs[id] = new Compte(id, "non_miagiste", nom, prenom, adresse, mail, tel);
+		//console.log(listeComptes);
+		console.log(listeUtilisateurs[id]);
+		index++;
+		return 1;
+		
+	}
+	return 0;
 }
 
 // créer un nouveau compte
-var creerCompte = function(id, role, nom, prenom, adresse, mail, tel) {
-	// s'il n'existe pas
-	if (typeof listeComptes[id] === 'undefined') {
+var creerCompte = function(role, nom, prenom, adresse, mail, tel) {
+	id = index;		
+		// s'il n'existe pas
+	if (typeof listeUtilisateurs[id] === 'undefined') {
+		console.log("hello");
 		// on le cree
-		listeComptes[id] = new Compte(id, role, nom, prenom, adresse, mail, tel);
+		listeUtilisateurs[id] = new Compte(id, role, nom, prenom, adresse, mail, tel);
 		//console.log(listeComptes);
+		console.log(listeUtilisateurs[id]);
+		index++;
 		return 1;
-    }
-    return 0;
+	}
+	return 0;
 }
 
-// pour créditer un compte existant
-var ajouterAuCompte = function(id, somme) {
-	//console.log(listeComptes);
-	// s'il n'existe pas
-	if (typeof listeComptes[id] === 'undefined')
+var modifierProfil = function(id, role) {
+	let user = getUser(id);
+	if (user == 'undefined' || user == null) {
 		return 0;
-    listeComptes[id].ajouter(somme);
-    return 1;
+	}
+	listeUtilisateurs[id].role = role;
+	return 1;
 }
 
-// pour débiter un compte existant
-var retirerDuCompte = function(id, somme) {
-	//console.log(listeComptes);
-	// s'il n'existe pas
-	if (typeof listeComptes[id] === 'undefined')
-		return 0;
-    listeComptes[id].retirer(somme);
-    return 1;
+var getUser = function(id) {
+	return listeUtilisateurs[id];
 }
 
-// pour connaitre la position d'un compte existant
-var positionDuCompte = function(id) {
-	//console.log(listeComptes);
-	// s'il n'existe pas
-	if (typeof listeComptes[id] === 'undefined')
-		return false;
-    return listeComptes[id].position;
+var existe = function(email) {
+	for (i=1; i < index; i++) {
+		if (listeUtilisateurs[i].mail == email) {
+			return true;
+		}
+	}
+	return false;
 }
 
-// les 4 fonctions exportées
+var getUserByEmail = function(email) {
+	for (i=1; i < index; i++) {
+		if (listeUtilisateurs[i].mail == email) {
+			return listeUtilisateurs[i];
+		}
+	}
+	return null;
+}
+
+exports.modifierProfil = modifierProfil;
+exports.getUserByEmail = getUserByEmail;
+exports.getUser = getUser;
 exports.creerCompte = creerCompte;
-exports.ajouterAuCompte = ajouterAuCompte;
-exports.retirerDuCompte = retirerDuCompte;
-exports.positionDuCompte = positionDuCompte;
+exports.creerCompteNonMiagiste = creerCompteNonMiagiste;
+exports.existe = existe;
