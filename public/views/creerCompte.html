@@ -1,23 +1,24 @@
 <div class="container mt-3">
     <br />
     <br />
-    <form action="/action_page.php">
+    <form>
         Nom:<br>
-        <input type="text" name="nom" value="">
+        <input type="text" name="nom" ng-model="nom" value="">
         <br>
         Prénom:<br>
-        <input type="text" name="prenom" value="">
+        <input type="text" name="prenom" ng-model="prenom" value="">
         <br>
         Adresse:<br>
-        <input type="text" name="adresse" value="">
+        <input type="text" name="adresse" ng-model="adresse" value="">
         <br>
         Mail:<br>
-        <input type="text" name="mail" value="">
+        <input type="text" name="mail" ng-model ="mail" value="">
         <br>
         Téléphone:<br>
-        <input type="text" name="telephone" value="">
+        <input type="text" name="telephone" ng-model="tel" value="">
         <br>
         <br><br>
-        <input type="submit" value="Submit">
+        <input type="submit" ng-click="creerCompte()" value="Submit">
     </form> 
+    {{ resultat }}
 </div>
