@@ -2,7 +2,6 @@
 var listeUtilisateurs = {};
 var index = 1;
 
-// Constructeur pour les Comptes
 function Compte(id, role, nom, prenom, adresse, mail, tel) {
   this.id = id;
 	this.role = role;
@@ -13,15 +12,19 @@ function Compte(id, role, nom, prenom, adresse, mail, tel) {
 	this.tel = tel;
 }
 
-// créer un nouveau compte
+/**
+ * 
+ * @param {*} nom 
+ * @param {*} prenom 
+ * @param {*} adresse 
+ * @param {*} mail 
+ * @param {*} tel 
+ * Permet de créer un compte non miagiste, le rôle attribuer est par défaut non_miagiste
+ */
 var creerCompteNonMiagiste = function(nom, prenom, adresse, mail, tel) {
 	id = index;		
-		// s'il n'existe pas
 	if (typeof listeUtilisateurs[id] === 'undefined') {
-		// on le cree
 		listeUtilisateurs[id] = new Compte(id, "non_miagiste", nom, prenom, adresse, mail, tel);
-		//console.log(listeComptes);
-		console.log(listeUtilisateurs[id]);
 		index++;
 		return 1;
 		
@@ -29,35 +32,55 @@ var creerCompteNonMiagiste = function(nom, prenom, adresse, mail, tel) {
 	return 0;
 }
 
-// créer un nouveau compte
+/**
+ * 
+ * @param {*} role 
+ * @param {*} nom 
+ * @param {*} prenom 
+ * @param {*} adresse 
+ * @param {*} mail 
+ * @param {*} tel 
+ * Permet de créer un nouveau compte
+ */
 var creerCompte = function(role, nom, prenom, adresse, mail, tel) {
 	id = index;		
-		// s'il n'existe pas
 	if (typeof listeUtilisateurs[id] === 'undefined') {
-		console.log("hello");
-		// on le cree
 		listeUtilisateurs[id] = new Compte(id, role, nom, prenom, adresse, mail, tel);
-		//console.log(listeComptes);
-		console.log(listeUtilisateurs[id]);
 		index++;
 		return 1;
 	}
 	return 0;
 }
 
-var modifierProfil = function(id, role) {
-	let user = getUser(id);
+/**
+ * 
+ * @param {*} email 
+ * @param {*} role 
+ * Permet de modifier le rôle d'un utilisateur
+ */
+var modifierProfil = function(email, role) {
+	let user = getUserByEmail(email);
 	if (user == 'undefined' || user == null) {
 		return 0;
 	}
-	listeUtilisateurs[id].role = role;
+	listeUtilisateurs[user.id].role = role;
 	return 1;
 }
 
+/**
+ * 
+ * @param {*} id 
+ * Permet de récupérer un utilisateur via son id
+ */
 var getUser = function(id) {
 	return listeUtilisateurs[id];
 }
 
+/**
+ * 
+ * @param {*} email 
+ * Permet de vérifier si un utilisateur existe déjà, via son email
+ */
 var existe = function(email) {
 	for (i=1; i < index; i++) {
 		if (listeUtilisateurs[i].mail == email) {
@@ -67,6 +90,11 @@ var existe = function(email) {
 	return false;
 }
 
+/**
+ * 
+ * @param {*} email 
+ * Permet de récupérer l'utilisateur via son email
+ */
 var getUserByEmail = function(email) {
 	for (i=1; i < index; i++) {
 		if (listeUtilisateurs[i].mail == email) {
@@ -76,9 +104,17 @@ var getUserByEmail = function(email) {
 	return null;
 }
 
+/**
+ * Permet de récupérer la liste des utilisateurs
+ */
+var getAllUser = function() {
+	return listeUtilisateurs;
+}
+
 exports.modifierProfil = modifierProfil;
 exports.getUserByEmail = getUserByEmail;
 exports.getUser = getUser;
 exports.creerCompte = creerCompte;
 exports.creerCompteNonMiagiste = creerCompteNonMiagiste;
 exports.existe = existe;
+exports.getAllUser = getAllUser;

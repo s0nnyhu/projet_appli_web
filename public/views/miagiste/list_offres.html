@@ -1,0 +1,15 @@
+<div data-ng-init="getAllOffre()" class="container mt-3">
+        <div class="alert alert-light"  ng-if="equals({}, listOffres)" role="alert">
+                Il n'y a pas d'offres de disponibles pour l'instant!
+          </div>
+            <div ng-repeat="offre in listOffres" class="card bg-light mb-3">
+                <div class="card-header"><strong>{{offre.sujet}}</strong></div>
+                <div class="card-body">
+                        <p><strong>Type: </strong>{{offre.type}}</p>
+                        <p><strong>Sujet: </strong>{{offre.sujet}}</p>
+                        <p><strong>Adresse: </strong>{{offre.adresse}}</p>
+                        <p><strong>Email: </strong>{{offre.mail_contact}}</p>
+                        <p><strong>Téléphone: </strong>{{offre.telephone_contact}}</p>
+                </div>
+            </div>
+        </div>

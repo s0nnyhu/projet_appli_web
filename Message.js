@@ -1,48 +1,106 @@
 var listeMessages = {};
-var id = 0;
+var index = 1;
 
-// Constructeur pour les Positions
-function Position (id, id_auteur, contenu, reponse) {
-	// l'id unique du message
+function Message (id, id_auteur, contenu, reponse) {
 	this.id = id;
+	this.id_auteur = id_auteur ;
+	this.horodatage_msg = new Date ();
+	this.contenu = contenu;
+	this.reponse = reponse;
+	this.inFAQ = false;
+}
 	
-	// l'id de l'auteur du message
-	this.Id_auteur = id_auteur ;
-	 
-	// Date et heure du message
-	this.Horodatage_msg = new Date ();
-	
-	// Contenu du message (chaîne de caractères)
-	this.Contenu = contenu;
-	
-	// Réponse au contenu (réponse = message)
-	this.Reponse = reponse;
-	
-	 }
-	 
-// Constructeur pour les messages
-function Message(id, Id_auteur, Contenu, Reponse){
-	// La position du message
-	this.position = new Position (id, Id_auteur, Contenu, Reponse);
-	
-	// Ajouter un message
-	this.ajouter = function (Contenu) {
-		this.position.Contenu = contenu_sous_la_forme_d_une_chaine_de_caracteres;
+/**
+ * 
+ * @param {*} id_auteur 
+ * @param {*} contenu 
+ * @param {*} reponse 
+ * Permet de créer un nouveau message
+ */
+var creerMessage = function(id_auteur, contenu, reponse) {
+	id = index;		
+	if (typeof listeMessages[id] === 'undefined') {
+		listeMessages[id] = new Message(id, id_auteur, contenu, reponse);
+		console.log(listeMessages[id]);
+		index++;
+		return id;
 	}
+	return 0;
 }
 
-// Créer un nouveau message
-var creerMessage = function (Id_auteur, Horodatage_msg, Contenu, Reponse){
-	// s'il n'existe pas 
-		id++;
-		// on le cree
-		var msg = new Message (id, Id_auteur, Horodatage_msg, Contenu, Reponse);
-		listeMessages[id] = msg;
-		return msg;
+/**
+ * 
+ * @param {*} id 
+ * Permet de récupérer les messages appartenant à un auteur spécifique via l'id de l'auteur
+ */
+var getMessageByUser = function(id) {
+	var tmp_messages = [];
+	var messages= {}
+	for (i=1; i < index; i++) {
+		if (listeMessages[i].id_auteur == id) {
+			tmp_messages.push(listeMessages[i]);
+		}
+	}
+	for (i=0; i<tmp_messages.length; i++) {
+		messages[i] = tmp_messages[i];
+	}
+	return messages;
+}
 
+/**
+ * 
+ * @param {*} id 
+ * Permet de récupérer un message selon l'id du message
+ */
+var getMessage = function(id) {
+	if (typeof listeMessages[id] === 'undefined') {
+		return false;
+	}
+	return listeMessages[id];
+}
+
+/**
+ * 
+ * @param {*} id (id du message)
+ * @param {*} status (boolean)
+ * Permet d'ajouter ou de retirer un message dans la section FAQ
+ */
+var majFAQ = function(id, status) {
+	let message = getMessage(id);
+	if (message == 'undefined' || message == null) {
+		return 0;
+	}
+	listeMessages[id].inFAQ = status;
+	return 1;
+}
+
+/**
+ * Permet de récupérer tous les messages
+ */
+var getAllMessage = function() {
+	return listeMessages;
+}
+
+ /**
+  * 
+  * @param {*} id (id d'un message)
+  * @param {*} id_new_message (id d'un nouveau message qui a été crée)
+  * Permet d'attribuer une réponse à un message
+  * Les messages de types réponses ont leur attribut réponse à 0
+  */
+var donnerReponse = function(id, id_new_message) {
+	let message = getMessage(id);
+	if (message == 'undefined' || message == null) {
+		return 0;
+	}
+	listeMessages[message.id].reponse = getMessage(id_new_message);
+	return 1;
 }
 
 // Exportations des fonctions 
 exports.creerMessage = creerMessage;
-
-	
+exports.getMessageByUser = getMessageByUser;
+exports.getMessage = getMessage;
+exports.getAllMessage = getAllMessage;
+exports.majFAQ = majFAQ;
+exports.donnerReponse = donnerReponse;

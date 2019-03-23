@@ -1,0 +1,12 @@
+<div data-ng-init="getAllMessage()" class="container mt-3">
+        <div class="alert alert-light"  ng-if="equals({}, listMessage)" role="alert">
+                Il n'y a pas de messages!
+          </div>
+        <div ng-repeat="message in listMessage" ng-if="message.reponse != 0" class="card bg-light mb-3">
+            <div class="card-header"><strong>{{message.contenu}}</strong></div>
+            <div class="card-body">
+            <p class="card-text">{{message.reponse.contenu}}</p>
+            </div>
+        </div>
+    </div>
+    

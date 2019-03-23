@@ -1,0 +1,21 @@
+<div ng-show="!user.estConnecte" class="container mt-3">
+    <br />
+    <br />
+    <form>
+            <div class="form-group">
+                    <label for="email">Adresse email:</label>
+                    <input type="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="mon.email@domain.com" ng-model="mail" value="">
+                    <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+            </div>
+            <input type="submit" ng-click="login()" value="Me connecter">
+    </form> 
+    <div class="mt-3" ng-bind-html="resultat"></div>
+</div>
+
+<div ng-show="user.estConnecte" class="container mt-3">
+    <br />
+    <br />
+    <div class="alert alert-success" role="alert">
+            Bonjour {{ user.nom | uppercase }} {{ user.prenom}}, vous êtes désormais connecté! 
+    </div>
+</div>
