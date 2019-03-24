@@ -1,4 +1,4 @@
-<div data-ng-init="getAllMessage()" class="container mt-3">
+<div ng-show="user.estConnecte && user.estCollab" data-ng-init="getAllMessage()" class="container mt-3">
         <div class="mt-3" ng-bind-html="resultatMessage"></div>
         <div class="alert alert-light"  ng-if="equals({}, listMessage)" role="alert">
                 Il n'y a pas de messages!

@@ -37,7 +37,14 @@ myApp.controller('myAppController', function ($scope, $rootScope, $window, $loca
    */
   $scope.creerMessage = function() {
     var messageToSave = new MessageFactory();
-    messageToSave.id_auteur = $rootScope.user.id;
+    //Si l'utilisateur est connecté, alors on récupère son id
+    if ($rootScope.user != null) {
+      messageToSave.id_auteur = $rootScope.user.id;
+    }
+    //sinon c'est donc un utilisateur anonyme
+    else {
+      messageToSave.id_auteur = null;
+    }
     messageToSave.contenu = $scope.contenu;
     messageToSave.reponse = null;
     messageToSave.$save(function(messageToSave) {

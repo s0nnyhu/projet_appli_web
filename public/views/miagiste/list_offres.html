@@ -1,4 +1,4 @@
-<div data-ng-init="getAllOffre()" class="container mt-3">
+<div ng-show="user.estConnecte && (user.estMiagiste || user.estCollab)" data-ng-init="getAllOffre()" class="container mt-3">
         <div class="alert alert-light"  ng-if="equals({}, listOffres)" role="alert">
                 Il n'y a pas d'offres de disponibles pour l'instant!
           </div>

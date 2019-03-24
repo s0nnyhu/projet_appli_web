@@ -1,4 +1,4 @@
-<div data-ng-init="getAllUser()" class="container mt-3">
+<div ng-show="user.estConnecte && user.estCollab" data-ng-init="getAllUser()" class="container mt-3">
     <div class="mt-3" ng-bind-html="resultatBascule"></div>
     <h4><u>Liste des Miagistes</u></h4>
     <table class="table">
