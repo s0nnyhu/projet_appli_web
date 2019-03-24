@@ -261,6 +261,11 @@ myApp.config(['$routeProvider', function ($routeProvider) {
     templateUrl:  'views/partage/creerMessage.html',
     controller: 'myAppController'
   })
+  .when('/404', {
+    templateUrl: 'views/public/404.html',
+    controller: 'myAppController'
+  })
+  $routeProvider.otherwise({redirectTo: '/404'});
 }]);
 
 /**
